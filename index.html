@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>100 razones para amarte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:        #0B0E27;
+    --indigo:     #171B3D;
+    --indigo-2:   #23285A;
+    --gold:       #E8B75E;
+    --gold-dim:   #9A7C3C;
+    --paper:      #F4EFE3;
+    --rose:       #D98B96;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0; padding:0; height:100%;
+    background:#000;
+    color:var(--paper);
+    font-family:'Jost', sans-serif;
+    overflow:hidden;
+  }
+
+  /* ---- Apertura en negro con el nombre iluminándose ---- */
+  #nameIntro{
+    position:fixed; inset:0;
+    background:#000;
+    z-index:20;
+    display:flex; align-items:center; justify-content:center;
+    transition:opacity 1.8s ease;
+  }
+  #nameIntro.hide{ opacity:0; pointer-events:none; }
+  .name-intro-eyebrow{
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%, -64px);
+    font-size:.7rem;
+    letter-spacing:.2em;
+    color:var(--gold-dim);
+    opacity:0;
+    animation:eyebrowFade 3.4s ease forwards;
+  }
+  .name-intro-text{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(2rem, 8vw, 3.2rem);
+    letter-spacing:.01em;
+    color:var(--gold);
+    opacity:0;
+    animation:nameGlow 3.4s ease forwards;
+  }
+  @keyframes eyebrowFade{
+    0%{ opacity:0; }
+    40%{ opacity:1; }
+    100%{ opacity:.8; }
+  }
+  @keyframes nameGlow{
+    0%{   opacity:0; text-shadow:0 0 0 rgba(232,183,94,0); }
+    38%{  opacity:1; text-shadow:0 0 22px rgba(232,183,94,.9), 0 0 50px rgba(232,183,94,.45); }
+    72%{  opacity:1; text-shadow:0 0 22px rgba(232,183,94,.9), 0 0 50px rgba(232,183,94,.45); }
+    100%{ opacity:1; text-shadow:0 0 8px rgba(232,183,94,.35); }
+  }
+
+  #sky{
+    position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse at 30% 20%, var(--indigo-2) 0%, transparent 55%),
+      radial-gradient(ellipse at 75% 75%, var(--indigo) 0%, transparent 60%),
+      var(--ink);
+    z-index:0;
+    opacity:0;
+    transition:opacity 2.4s ease;
+  }
+  #sky.show{ opacity:1; }
+
+  #skyPinkTint{
+    position:fixed; inset:0;
+    z-index:0;
+    pointer-events:none;
+    background:
+      radial-gradient(ellipse at 50% 78%, rgba(217,139,150,.35) 0%, transparent 55%),
+      radial-gradient(ellipse at 20% 15%, rgba(217,139,150,.12) 0%, transparent 50%);
+    opacity:0;
+    transition:opacity 2.6s ease;
+  }
+  #skyPinkTint.show{ opacity:1; }
+
+  /* ---- Auroras: aparecen sobre el cielo según la canción elegida ---- */
+  .aurora{
+    position:fixed; inset:0;
+    z-index:0;
+    pointer-events:none;
+    overflow:hidden;
+    opacity:0;
+    transition:opacity 2.4s ease;
+    mix-blend-mode:screen;
+  }
+  .aurora.show{ opacity:1; }
+  .aurora-band{
+    position:absolute;
+    top:-25%;
+    left:-25%;
+    width:150%;
+    height:65%;
+    border-radius:50%;
+    filter:blur(60px);
+    opacity:.5;
+    animation:auroraDrift 16s ease-in-out infinite;
+  }
+  .aurora-band:nth-child(2){ animation-delay:-5s; animation-duration:20s; opacity:.4; }
+  .aurora-band:nth-child(3){ animation-delay:-10s; animation-duration:24s; opacity:.35; }
+  @keyframes auroraDrift{
+    0%, 100%{ transform:translateX(-4%) translateY(0) scaleX(1); }
+    50%{ transform:translateX(4%) translateY(3%) scaleX(1.1); }
+  }
+  .aurora-pink .aurora-band:nth-child(1){
+    background:linear-gradient(120deg, rgba(217,139,150,.55) 0%, rgba(232,183,94,.2) 45%, transparent 75%);
+  }
+  .aurora-pink .aurora-band:nth-child(2){
+    background:linear-gradient(100deg, rgba(232,183,94,.4) 0%, rgba(217,139,150,.35) 50%, transparent 75%);
+  }
+  .aurora-pink .aurora-band:nth-child(3){
+    background:linear-gradient(140deg, rgba(217,139,150,.45) 0%, transparent 70%);
+  }
+  .aurora-red .aurora-band:nth-child(1){
+    background:linear-gradient(120deg, rgba(199,64,50,.55) 0%, rgba(232,120,70,.25) 45%, transparent 75%);
+  }
+  .aurora-red .aurora-band:nth-child(2){
+    background:linear-gradient(100deg, rgba(232,120,70,.4) 0%, rgba(199,64,50,.35) 50%, transparent 75%);
+  }
+  .aurora-red .aurora-band:nth-child(3){
+    background:linear-gradient(140deg, rgba(199,64,50,.45) 0%, transparent 70%);
+  }
+
+  .star{
+    position:absolute;
+    background:var(--paper);
+    border-radius:50%;
+    opacity:.5;
+    animation:twinkle linear infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{ opacity:.15; }
+    50%{ opacity:.85; }
+  }
+
+  .shooting-star{
+    position:absolute;
+    width:0; height:0;
+  }
+  .ss-head{
+    position:absolute;
+    top:0; left:0;
+    width:2px; height:2px;
+    background:var(--paper);
+    border-radius:50%;
+    box-shadow:0 0 6px 1px rgba(244,239,227,.6);
+    opacity:0;
+  }
+  .ss-head::before{
+    content:'';
+    position:absolute;
+    top:50%; right:100%;
+    width:120px; height:1px;
+    transform:translateY(-50%);
+    background:linear-gradient(90deg, rgba(244,239,227,0) 0%, rgba(244,239,227,.8) 100%);
+  }
+  .shooting-star.fly .ss-head{
+    animation:shoot 1.15s cubic-bezier(.2,.6,.3,1) forwards;
+  }
+  @keyframes shoot{
+    0%{   opacity:0; transform:translateX(0); }
+    8%{   opacity:1; }
+    75%{  opacity:1; }
+    100%{ opacity:0; transform:translateX(300px); }
+  }
+
+  .stage{
+    position:relative; z-index:1;
+    height:100%;
+    display:flex; align-items:center; justify-content:center;
+    padding:24px;
+    opacity:0;
+    transition:opacity 2s ease;
+  }
+  .stage.show{ opacity:1; }
+
+  .screen{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    padding:24px;
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity .9s cubic-bezier(.4,0,.2,1), transform .9s cubic-bezier(.4,0,.2,1);
+    pointer-events:none;
+  }
+  .screen.active{
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+  }
+
+  .panel{
+    width:100%; max-width:520px;
+    text-align:center;
+  }
+
+  #intro .panel > *{
+    opacity:0;
+    animation:panelFade 1.4s ease forwards;
+  }
+  #intro .eyebrow{ animation-delay:.2s; }
+  #intro .title{ animation-delay:.45s; }
+  #intro .lede{ animation-delay:.75s; }
+  #intro .begin-btn{ animation-delay:1.05s; }
+  @keyframes panelFade{
+    from{ opacity:0; transform:translateY(8px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  /* ---- Intro screen ---- */
+  .eyebrow{
+    font-family:'Jost', sans-serif;
+    font-weight:300;
+    font-size:.78rem;
+    letter-spacing:.14em;
+    color:var(--gold-dim);
+    margin-bottom:18px;
+  }
+  h1.title{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:500;
+    font-size:clamp(2.4rem, 9vw, 3.6rem);
+    line-height:1.05;
+    margin:0 0 14px;
+    color:var(--paper);
+  }
+  h1.title em{
+    font-style:italic;
+    color:var(--gold);
+  }
+  .lede{
+    font-size:1rem;
+    line-height:1.6;
+    color:#C9C6DA;
+    max-width:380px;
+    margin:0 auto 40px;
+    font-weight:300;
+  }
+  .lede b{ color:var(--paper); font-weight:500; }
+
+  button{
+    font-family:'Jost', sans-serif;
+    cursor:pointer;
+    border:none;
+    background:none;
+  }
+  .begin-btn{
+    font-size:.95rem;
+    letter-spacing:.04em;
+    color:var(--ink);
+    background:var(--gold);
+    padding:15px 38px;
+    border-radius:999px;
+    font-weight:500;
+    transition:transform .25s ease, box-shadow .25s ease;
+    box-shadow:0 0 0 0 rgba(232,183,94,.4);
+  }
+  .begin-btn:hover{ transform:translateY(-2px); box-shadow:0 8px 24px rgba(232,183,94,.25); }
+  .begin-btn:active{ transform:translateY(0); }
+
+  /* ---- Card screen ---- */
+  /* el ancho de la tarjeta ahora lo controla .panel dentro de .screen */
+
+  .counter{
+    font-size:.75rem;
+    letter-spacing:.12em;
+    color:var(--gold-dim);
+    margin-bottom:22px;
+    font-weight:400;
+    transition:opacity .32s ease;
+  }
+  .counter.transitioning{ opacity:0; }
+  .counter span{ color:var(--gold); }
+
+  .reason-card{
+    background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.01));
+    border:1px solid rgba(232,183,94,.18);
+    border-radius:4px;
+    padding:52px 34px;
+    min-height:200px;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .reason-card::before, .reason-card::after{
+    content:'';
+    position:absolute;
+    width:7px; height:7px;
+    background:var(--gold);
+    border-radius:50%;
+    box-shadow:0 0 8px 2px rgba(232,183,94,.5);
+  }
+  .reason-card::before{ top:-4px; left:-4px; }
+  .reason-card::after{ bottom:-4px; right:-4px; }
+
+  .reason-text{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(1.5rem, 5.2vw, 1.9rem);
+    line-height:1.4;
+    color:var(--paper);
+    transition:opacity .32s ease, transform .32s ease;
+  }
+  .reason-text.transitioning{
+    opacity:0;
+    transform:translateY(6px);
+  }
+
+  .nav-row{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-top:28px;
+  }
+  .nav-btn{
+    color:var(--paper);
+    font-size:.85rem;
+    letter-spacing:.05em;
+    padding:12px 20px;
+    border:1px solid rgba(244,239,227,.25);
+    border-radius:999px;
+    transition:border-color .2s ease, opacity .2s ease;
+  }
+  .nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .nav-btn:disabled{ opacity:.25; cursor:default; }
+  .nav-btn:disabled:hover{ border-color:rgba(244,239,227,.25); color:var(--paper); }
+
+  .nav-next{
+    background:var(--gold);
+    color:var(--ink);
+    border-color:var(--gold);
+    font-weight:500;
+  }
+  .nav-next:hover{ color:var(--ink); border-color:var(--gold); opacity:.9; }
+
+  /* constellation progress */
+  .constellation{
+    margin-top:20px;
+    display:flex; flex-wrap:wrap; gap:2px;
+    justify-content:center;
+    max-width:460px;
+    margin-left:auto; margin-right:auto;
+  }
+  .dot-btn{
+    width:16px; height:16px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    background:none;
+    border:none;
+    padding:0;
+  }
+  .dot{
+    width:6px; height:6px;
+    border-radius:50%;
+    background:rgba(244,239,227,.15);
+    transition:background .3s ease, box-shadow .3s ease, transform .3s ease;
+  }
+  .dot.lit{
+    background:var(--gold);
+    box-shadow:0 0 6px 1px rgba(232,183,94,.6);
+    transform:scale(1.15);
+  }
+  .dot-btn:hover .dot{
+    background:var(--gold);
+    transform:scale(1.6);
+  }
+  .dot-btn:hover .dot.lit{ transform:scale(1.6); }
+
+  /* ---- Final screen ---- */
+  .final .title{ font-size:clamp(2rem, 8vw, 2.8rem); }
+  .final .lede{ max-width:420px; }
+  .signature{
+    margin-top:30px;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:1.15rem;
+    color:var(--gold);
+  }
+  .replay{
+    margin-top:26px;
+    font-size:.8rem;
+    color:#8b87a3;
+    letter-spacing:.04em;
+    text-decoration:underline;
+    text-underline-offset:4px;
+  }
+  .replay:hover{ color:var(--paper); }
+
+  .final-btn{
+    margin-top:26px;
+    font-size:.75rem;
+    letter-spacing:.1em;
+    color:var(--gold-dim);
+    padding:10px 22px;
+    border:1px solid rgba(232,183,94,.25);
+    border-radius:999px;
+    transition:border-color .25s ease, color .25s ease;
+  }
+  .final-btn:hover{ border-color:var(--gold); color:var(--gold); }
+
+  /* ---- Pantalla de cierre ---- */
+  .closing-panel{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:48px;
+    max-width:640px;
+    text-align:left;
+    flex-wrap:wrap;
+  }
+  .closing-moon{
+    position:relative;
+    width:220px; height:220px;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .closing-moon .moon{ width:220px; height:220px; }
+  .closing-moon .moon-glow{ inset:-42px; }
+  .closing-moon .moon-halo-outer{ inset:-72px; }
+
+  .closing-text{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:6px;
+    text-align:left;
+  }
+  .closing-line1{
+    font-size:.85rem;
+    letter-spacing:.06em;
+    color:var(--gold-dim);
+  }
+  .closing-line2{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(1.9rem, 6vw, 2.6rem);
+    color:var(--gold);
+    line-height:1.15;
+    margin-bottom:12px;
+  }
+
+  @media (max-width: 560px){
+    .closing-panel{ justify-content:center; text-align:center; }
+    .closing-text{ align-items:center; text-align:center; }
+  }
+
+  .final-actions{
+    margin-top:34px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:16px;
+  }
+  .song-btn{
+    font-size:.85rem;
+    letter-spacing:.04em;
+    color:var(--gold);
+    padding:13px 30px;
+    border:1px solid rgba(232,183,94,.4);
+    border-radius:999px;
+    font-weight:500;
+    transition:border-color .25s ease, background .25s ease, transform .25s ease;
+  }
+  .song-btn:hover{
+    border-color:var(--gold);
+    background:rgba(232,183,94,.08);
+    transform:translateY(-2px);
+  }
+
+  /* ---- Luna y reproductor ---- */
+  .moon-panel{ display:flex; flex-direction:column; align-items:center; position:relative; }
+
+  .back-btn{
+    align-self:flex-start;
+    font-size:.72rem;
+    letter-spacing:.06em;
+    color:var(--gold-dim);
+    margin-bottom:22px;
+    padding:4px 0;
+    transition:color .2s ease;
+  }
+  .back-btn:hover{ color:var(--gold); }
+
+  /* ---- Pantalla de selección: portadas sobre una mesa ---- */
+  .select-panel{ max-width:460px; }
+  .song-table{
+    display:flex;
+    gap:40px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:36px;
+  }
+  .song-card{
+    background:none;
+    border:none;
+    padding:0;
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:16px;
+  }
+  .card-surface{
+    position:relative;
+    width:128px; height:128px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .card-surface::after{
+    content:'';
+    position:absolute;
+    left:50%; bottom:-16px;
+    width:78%; height:16px;
+    transform:translateX(-50%);
+    border-radius:50%;
+    background:radial-gradient(ellipse, rgba(0,0,0,.5) 0%, transparent 72%);
+    filter:blur(2px);
+    transition:width .35s ease, opacity .35s ease, filter .35s ease;
+  }
+  .card-cover-img, .mini-moon{
+    position:relative;
+    width:128px; height:128px;
+    border-radius:14px;
+    object-fit:cover;
+    display:block;
+    transform:translateY(-4px);
+    box-shadow:0 16px 26px -10px rgba(0,0,0,.6);
+    transition:transform .35s ease, box-shadow .35s ease;
+  }
+  .mini-moon{
+    border-radius:50%;
+    background:
+      radial-gradient(circle at 34% 30%, rgba(255,255,255,.5), transparent 40%),
+      radial-gradient(circle at 65% 68%, rgba(191,110,130,.5), transparent 45%),
+      radial-gradient(circle at 50% 50%, #F3B8C4 0%, #E58DA0 55%, #C86A85 100%);
+    box-shadow:0 16px 30px -8px rgba(217,139,150,.55), inset -10px -8px 20px rgba(120,45,65,.4);
+  }
+  .card-play-icon{
+    width:30px; height:30px;
+    opacity:0;
+    transition:opacity .3s ease;
+  }
+  .song-card:hover .card-play-icon,
+  .song-card:active .card-play-icon{ opacity:1; }
+  .song-card:hover .card-cover-img,
+  .song-card:hover .mini-moon,
+  .song-card:active .card-cover-img,
+  .song-card:active .mini-moon{
+    transform:translateY(-14px);
+    box-shadow:0 28px 34px -10px rgba(0,0,0,.65);
+  }
+  .song-card:hover .card-surface::after,
+  .song-card:active .card-surface::after{
+    width:56%;
+    opacity:.55;
+    filter:blur(4px);
+  }
+  .card-caption{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:1.05rem;
+    color:var(--paper);
+    text-align:center;
+  }
+  .card-caption span{
+    display:block;
+    font-family:'Jost', sans-serif;
+    font-style:normal;
+    font-size:.68rem;
+    letter-spacing:.1em;
+    color:var(--gold-dim);
+    margin-top:2px;
+  }
+
+  /* ---- Reproductor con portada (Telephones) ---- */
+  .cover-player{
+    position:relative;
+    width:150px; height:150px;
+    margin:0 auto 26px;
+    border-radius:18px;
+    overflow:hidden;
+    cursor:pointer;
+    box-shadow:0 20px 34px -10px rgba(0,0,0,.6);
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .4s ease;
+  }
+  .cover-player-img{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+  }
+  .cover-player:hover{ transform:scale(1.04); }
+  .cover-player.playing .play-icon{
+    opacity:0;
+    transform:scale(.7);
+    pointer-events:none;
+  }
+
+  .moon-wrap{
+    position:relative;
+    width:150px; height:150px;
+    margin:0 auto 26px;
+    cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .moon-halo-outer{
+    position:absolute; inset:-55px;
+    border-radius:50%;
+    border:1px solid rgba(232,183,94,.12);
+    animation:haloSpin 40s linear infinite;
+  }
+  .moon-halo-outer::before,
+  .moon-halo-outer::after{
+    content:'';
+    position:absolute;
+    width:3px; height:3px;
+    border-radius:50%;
+    background:var(--gold);
+    box-shadow:0 0 6px 1px rgba(232,183,94,.7);
+  }
+  .moon-halo-outer::before{ top:6%; left:50%; }
+  .moon-halo-outer::after{ bottom:10%; left:12%; }
+  @keyframes haloSpin{
+    from{ transform:rotate(0deg); }
+    to{ transform:rotate(360deg); }
+  }
+  .moon-glow{
+    position:absolute; inset:-30px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(217,139,150,.55) 0%, rgba(217,139,150,.15) 45%, transparent 72%);
+    animation:moonPulse 4.5s ease-in-out infinite;
+  }
+  @keyframes moonPulse{
+    0%,100%{ transform:scale(1); opacity:.8; }
+    50%{ transform:scale(1.12); opacity:1; }
+  }
+  .moon{
+    position:relative;
+    width:150px; height:150px;
+    border-radius:50%;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 30% 26%, rgba(255,255,255,.28) 0%, transparent 9%),
+      radial-gradient(circle at 60% 20%, rgba(120,45,65,.28) 0%, transparent 8%),
+      radial-gradient(circle at 22% 55%, rgba(120,45,65,.22) 0%, transparent 11%),
+      radial-gradient(circle at 72% 62%, rgba(120,45,65,.3) 0%, transparent 13%),
+      radial-gradient(circle at 45% 78%, rgba(255,255,255,.18) 0%, transparent 7%),
+      radial-gradient(circle at 34% 30%, rgba(255,255,255,.55), transparent 40%),
+      radial-gradient(circle at 65% 68%, rgba(191,110,130,.5), transparent 45%),
+      radial-gradient(circle at 50% 50%, #F3B8C4 0%, #E58DA0 55%, #C86A85 100%);
+    box-shadow:0 0 60px 10px rgba(217,139,150,.5), inset -16px -12px 34px rgba(120,45,65,.4);
+    transition:transform .4s ease;
+  }
+  .moon::after{
+    content:'';
+    position:absolute; inset:0;
+    background:linear-gradient(115deg, transparent 30%, rgba(255,255,255,.4) 48%, transparent 62%);
+    background-size:250% 250%;
+    background-position:130% 0%;
+    animation:moonShine 7s ease-in-out infinite;
+    animation-delay:1.5s;
+  }
+  @keyframes moonShine{
+    0%, 40%{ background-position:130% 0%; }
+    60%, 100%{ background-position:-30% 100%; }
+  }
+  .moon-wrap:hover .moon{ transform:scale(1.04); }
+
+  .play-icon{
+    position:absolute;
+    width:38px; height:38px;
+    fill:#3A1420;
+    filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));
+    transition:opacity .35s ease, transform .35s ease;
+  }
+  .moon-wrap.playing .play-icon{
+    opacity:0;
+    transform:scale(.7);
+    pointer-events:none;
+  }
+  .moon-wrap.playing .moon-glow{
+    animation-duration:2.4s;
+  }
+
+  .song-caption{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:1.05rem;
+    color:var(--gold);
+    margin-bottom:30px;
+  }
+
+  .lyrics-box{
+    width:100%;
+    max-width:400px;
+    height:180px;
+    overflow:hidden;
+    position:relative;
+    mask-image:linear-gradient(to bottom, transparent, #000 15%, #000 85%, transparent);
+    -webkit-mask-image:linear-gradient(to bottom, transparent, #000 15%, #000 85%, transparent);
+  }
+  .lyrics-scroll{
+    position:absolute;
+    left:0; right:0;
+    top:100%;
+  }
+  .lyrics-scroll p{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:1.05rem;
+    line-height:1.9;
+    color:#D9D6E8;
+    text-align:center;
+    margin:0 0 18px;
+  }
+  .lyrics-placeholder{ color:#6b6885 !important; font-style:normal !important; font-size:.85rem !important; }
+
+  /* el desplazamiento ahora lo controla JS cuadro a cuadro, atado al tiempo
+     real del audio (audio.currentTime), en vez de una animación de duración fija */
+
+  .seek-row{
+    width:100%;
+    max-width:360px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:0 auto 4px;
+  }
+  .time-label{
+    font-size:.7rem;
+    color:var(--gold-dim);
+    min-width:30px;
+    text-align:center;
+    flex-shrink:0;
+  }
+  .range-input{
+    -webkit-appearance:none;
+    appearance:none;
+    height:3px;
+    border-radius:999px;
+    background:rgba(244,239,227,.2);
+    outline:none;
+  }
+  .range-input::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:13px; height:13px;
+    border-radius:50%;
+    background:var(--gold);
+    cursor:pointer;
+    box-shadow:0 0 6px rgba(232,183,94,.6);
+  }
+  .range-input::-moz-range-thumb{
+    width:13px; height:13px;
+    border:none;
+    border-radius:50%;
+    background:var(--gold);
+    cursor:pointer;
+    box-shadow:0 0 6px rgba(232,183,94,.6);
+  }
+  #seekSlider{ flex:1; width:auto; }
+
+  .song-controls{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    margin-top:14px;
+  }
+  .ctrl-btn{
+    width:38px; height:38px;
+    border-radius:50%;
+    border:1px solid rgba(232,183,94,.4);
+    display:flex; align-items:center; justify-content:center;
+    transition:border-color .2s ease, background .2s ease;
+    flex-shrink:0;
+  }
+  .ctrl-btn:hover{ border-color:var(--gold); background:rgba(232,183,94,.08); }
+  .ctrl-btn svg{ width:16px; height:16px; fill:var(--gold); }
+  #restartBtn svg{ width:14px; height:14px; }
+
+  .volume-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .vol-step{
+    width:26px; height:26px;
+    border-radius:50%;
+    color:var(--gold-dim);
+    font-size:1rem;
+    line-height:1;
+    display:flex; align-items:center; justify-content:center;
+    transition:color .2s ease;
+  }
+  .vol-step:hover{ color:var(--gold); }
+
+  #volumeSlider{
+    -webkit-appearance:none;
+    appearance:none;
+    width:90px; height:3px;
+    border-radius:999px;
+    background:rgba(244,239,227,.2);
+    outline:none;
+  }
+  #volumeSlider::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:13px; height:13px;
+    border-radius:50%;
+    background:var(--gold);
+    cursor:pointer;
+    box-shadow:0 0 6px rgba(232,183,94,.6);
+  }
+  #volumeSlider::-moz-range-thumb{
+    width:13px; height:13px;
+    border:none;
+    border-radius:50%;
+    background:var(--gold);
+    cursor:pointer;
+    box-shadow:0 0 6px rgba(232,183,94,.6);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .star{ animation:none; opacity:.4; }
+    .begin-btn, .nav-btn, .dot, .dot-btn{ transition:none; }
+    .moon-halo-outer{ animation:none; }
+    .aurora-band{ animation:none; }
+    .screen{ transition:opacity .25s linear; transform:none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="nameIntro">
+  <div class="name-intro-eyebrow">PARA</div>
+  <div class="name-intro-text">Vanesa</div>
+</div>
+
+<div id="sky"></div>
+<div id="skyPinkTint"></div>
+<div class="aurora aurora-pink" id="auroraPink">
+  <div class="aurora-band"></div>
+  <div class="aurora-band"></div>
+  <div class="aurora-band"></div>
+</div>
+<div class="aurora aurora-red" id="auroraRed">
+  <div class="aurora-band"></div>
+  <div class="aurora-band"></div>
+  <div class="aurora-band"></div>
+</div>
+
+<div class="stage" id="stage">
+
+  <!-- INTRO -->
+  <div class="screen active" id="intro">
+    <div class="panel">
+      <div class="eyebrow">PARA VANESA</div>
+      <h1 class="title">100 razones<br>para <em>amarte</em></h1>
+      <p class="lede">No caben todas las estrellas del cielo en una sola noche,<br>pero aquí van <b>cien</b> — una por una, como fueron llegando.</p>
+      <button class="begin-btn" id="beginBtn">Empezar el viaje</button>
+    </div>
+  </div>
+
+  <!-- CARD -->
+  <div class="screen card-wrap" id="cardWrap">
+    <div class="panel">
+      <div class="counter">RAZÓN <span id="counterNum">1</span> DE 100</div>
+      <div class="reason-card">
+        <div class="reason-text" id="reasonText"></div>
+      </div>
+      <div class="nav-row">
+        <button class="nav-btn" id="prevBtn">← anterior</button>
+        <button class="nav-btn nav-next" id="nextBtn">siguiente →</button>
+      </div>
+      <div class="constellation" id="constellation"></div>
+    </div>
+  </div>
+
+  <!-- FINAL -->
+  <div class="screen card-wrap final" id="finalScreen">
+    <div class="panel">
+      <div class="eyebrow">Y AÚN ASÍ, NO SON TODAS</div>
+      <h1 class="title">Sigo<br>encontrando <em>más</em></h1>
+      <p class="lede">Cien razones caben en una pantalla.<br>Las que faltan las voy a decir en persona, todos los días que vienen.</p>
+      <div class="signature">— {{TU_NOMBRE}}, {{FECHA}}</div>
+      <div class="final-actions">
+        <button class="song-btn" id="goSongBtn">Escuchar nuestras canciones ✦</button>
+        <button class="replay" id="replayBtn">volver a empezar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ELEGIR CANCIÓN -->
+  <div class="screen" id="songSelectScreen">
+    <div class="panel select-panel">
+      <div class="eyebrow">ELIGE UNA</div>
+      <h1 class="title">Nuestras<br><em>canciones</em></h1>
+      <div class="song-table">
+        <button class="song-card" id="cardMoonstruck" aria-label="Escuchar Moonstruck">
+          <div class="card-surface">
+            <div class="mini-moon"></div>
+            <svg class="play-icon card-play-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <polygon points="5,3 21,12 5,21"></polygon>
+            </svg>
+          </div>
+          <div class="card-caption">Moonstruck<span>ENHYPEN</span></div>
+        </button>
+        <button class="song-card" id="cardTelephones" aria-label="Escuchar Telephones">
+          <div class="card-surface">
+            <img src="telephones-cover.jpg" alt="Telephones" class="card-cover-img">
+            <svg class="play-icon card-play-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <polygon points="5,3 21,12 5,21"></polygon>
+            </svg>
+          </div>
+          <div class="card-caption">Telephones<span>Vacations</span></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SONG / MOON -->
+  <div class="screen" id="songScreen">
+    <div class="panel moon-panel">
+      <button class="back-btn" id="backToSelectBtn">‹ elegir otra canción</button>
+
+      <div class="moon-wrap" id="moonPlayBtn" role="button" tabindex="0" aria-label="Reproducir canción">
+        <div class="moon-halo-outer"></div>
+        <div class="moon-glow"></div>
+        <div class="moon"></div>
+        <svg class="play-icon" id="playIcon" viewBox="0 0 24 24" aria-hidden="true">
+          <polygon points="5,3 21,12 5,21"></polygon>
+        </svg>
+      </div>
+
+      <div class="cover-player" id="coverPlayBtn" role="button" tabindex="0" aria-label="Reproducir canción" style="display:none;">
+        <img src="telephones-cover.jpg" alt="" class="cover-player-img">
+        <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <polygon points="5,3 21,12 5,21"></polygon>
+        </svg>
+      </div>
+
+      <div class="song-caption" id="songCaption">Moonstruck — ENHYPEN</div>
+
+      <div class="seek-row">
+        <span class="time-label" id="timeCurrent">0:00</span>
+        <input type="range" id="seekSlider" class="range-input" min="0" max="100" value="0" step="0.1" aria-label="Avanzar o retroceder la canción">
+        <span class="time-label" id="timeDuration">0:00</span>
+      </div>
+
+      <div class="song-controls" id="songControls">
+        <button class="ctrl-btn" id="restartBtn" aria-label="Volver al principio de la canción">
+          <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"></path></svg>
+        </button>
+        <button class="ctrl-btn" id="pauseBtn" aria-label="Pausar o reanudar la canción">
+          <svg class="icon-pause" viewBox="0 0 24 24"><rect x="4" y="3" width="5" height="18" rx="1"></rect><rect x="15" y="3" width="5" height="18" rx="1"></rect></svg>
+          <svg class="icon-resume" viewBox="0 0 24 24" style="display:none"><polygon points="5,3 20,12 5,21"></polygon></svg>
+        </button>
+        <div class="volume-row">
+          <button class="vol-step" id="volDownBtn" aria-label="Bajar volumen">–</button>
+          <input type="range" id="volumeSlider" class="range-input" min="0" max="100" value="70" aria-label="Volumen">
+          <button class="vol-step" id="volUpBtn" aria-label="Subir volumen">+</button>
+        </div>
+      </div>
+
+      <div class="lyrics-box" id="lyricsBox">
+        <div class="lyrics-scroll" id="lyricsScroll"></div>
+      </div>
+
+      <button class="final-btn" id="goClosingBtn">Final →</button>
+    </div>
+  </div>
+
+  <!-- Fuentes de letra por canción: se copian al cuadro de arriba según la que elijas -->
+  <template id="lyricsMoonstruck">
+    <p>Mm, sí</p>
+    <p>Mm, yeah</p>
+    <p>Mm, yeah</p>
+
+    <p>Me tienes deslumbrado</p>
+    <p>You got me Moonstruck</p>
+    <p>You got me moonstruck</p>
+
+    <p>En este instante envuelto en sombras</p>
+    <p>어둠으로 물든 이 순간</p>
+    <p>eodumeuro muldeun i sun-gan</p>
+
+    <p>Déjame llevarte al paraíso</p>
+    <p>낙원으로 let me take you</p>
+    <p>nagwoneuro let me take you</p>
+
+    <p>La Luna se asoma tras las nubes</p>
+    <p>드러나는 구름 뒤의 달</p>
+    <p>deureonaneun gureum dwiui dal</p>
+
+    <p>Y tú me embriagas cada vez más, nena</p>
+    <p>도취돼 넌 내게 점점, baby</p>
+    <p>dochwidwae neon naege jeomjeom, baby</p>
+
+    <p>¿No me dejarás entrar? Un secreto solo para dos</p>
+    <p>Won't you let me in? 둘만의 secret</p>
+    <p>Won't you let me in? dulmanui secret</p>
+
+    <p>Una atracción irresistible, oh, oh</p>
+    <p>거부하지 못할 이끌림, oh, oh</p>
+    <p>geobuhaji motal ikkeullim, oh, oh</p>
+
+    <p>Bajo la luz de la Luna, tú y yo</p>
+    <p>달빛 아래 you and I</p>
+    <p>dalbit arae you and I</p>
+
+    <p>El Sol se esconde tras la noche</p>
+    <p>태양은 behind the night</p>
+    <p>taeyang-eun behind the night</p>
+
+    <p>Esta noche será eterna</p>
+    <p>영원이 될 오늘 밤</p>
+    <p>yeong-woni doel oneul bam</p>
+
+    <p>Bailemos y embriaguémonos toda la noche, oh</p>
+    <p>춤을 추며 취해가지 all night long, oh</p>
+    <p>chumeul chumyeo chwihaegaji all night long, oh</p>
+
+    <p>Solo nosotros dos</p>
+    <p>Just the two of us</p>
+    <p>Just the two of us</p>
+
+    <p>Profundizándose el hechizo de la Luna</p>
+    <p>깊어져 가는 Moonstruck</p>
+    <p>gipeojyeo ganeun moonstruck</p>
+
+    <p>Oh, tú me haces perder la cabeza</p>
+    <p>Oh, you make me go</p>
+    <p>Oh, you make me go</p>
+
+    <p>Loco por ti, por ti, nena</p>
+    <p>Crazy over you (you), you, baby</p>
+    <p>Crazy over you (you), you, baby</p>
+
+    <p>Déjame abrazarte fuerte</p>
+    <p>Let me hold you close</p>
+    <p>Let me hold you close</p>
+
+    <p>Volar sobre esta noche hacia la Luna que asciende</p>
+    <p>떠오른 달 그 위로 이 밤을 날아</p>
+    <p>tteooreun dal geu wiro i bameul nara</p>
+
+    <p>Loco por ti, por ti, nena</p>
+    <p>Crazy over you (you), you, baby</p>
+    <p>Crazy over you (you), you, baby</p>
+
+    <p>Tu cabello castaño ondeando</p>
+    <p>흩날리는 brown hair</p>
+    <p>heunnallineun brown hair</p>
+
+    <p>Vuela entre las estrellas brillantes</p>
+    <p>반짝이는 별 사이로 fly</p>
+    <p>banjjagineun byeol sairo fly</p>
+
+    <p>Montando una alfombra mágica de ensueño</p>
+    <p>꿈만 같은 magic carpet ridin'</p>
+    <p>kkumman gateun magic carpet ridin'</p>
+
+    <p>Nena, ahora estás en mi sangre</p>
+    <p>Baby, now you're in my blood</p>
+    <p>Baby, now you're in my blood</p>
+
+    <p>Bajo la luz de la Luna, tú y yo</p>
+    <p>달빛 아래 you and I</p>
+    <p>dalbit arae you and I</p>
+
+    <p>Florecemos en la noche</p>
+    <p>우린 밤에 피어나</p>
+    <p>urin bame pieona</p>
+
+    <p>Esta noche florecerá la eternidad</p>
+    <p>영원이 꽃 필 이 밤</p>
+    <p>yeong-woni kkot pil i bam</p>
+
+    <p>Embriaguémonos aún más toda la noche, oh</p>
+    <p>좀 더 깊이 취해가지 all night long, oh</p>
+    <p>jom deo gipi chwihaegaji all night long, oh</p>
+
+    <p>Solo nosotros dos</p>
+    <p>Just the two of us</p>
+    <p>Just the two of us</p>
+
+    <p>Profundizándose el hechizo de la Luna</p>
+    <p>깊어져 가는 Moonstruck</p>
+    <p>gipeojyeo ganeun moonstruck</p>
+
+    <p>Oh, tú me haces perder la cabeza</p>
+    <p>Oh, you make me go</p>
+    <p>Oh, you make me go</p>
+
+    <p>Loco por ti, por ti, nena</p>
+    <p>Crazy over you (you), you, baby</p>
+    <p>Crazy over you (you), you, baby</p>
+
+    <p>Déjame abrazarte fuerte</p>
+    <p>Let me hold you close</p>
+    <p>Let me hold you close</p>
+
+    <p>Volar sobre esta noche hacia la Luna que asciende</p>
+    <p>떠오른 달 그 위로 이 밤을 날아</p>
+    <p>tteooreun dal geu wiro i bameul nara</p>
+
+    <p>Loco por ti, por ti, nena</p>
+    <p>Crazy over you (you), you, baby</p>
+    <p>Crazy over you (you), you, baby</p>
+
+    <p>Podemos tomarlo con calma</p>
+    <p>We can take it slow</p>
+    <p>We can take it slow</p>
+
+    <p>Perdidos en el éxtasis del hechizo de la Luna</p>
+    <p>황홀에 빠진 Moonstruck</p>
+    <p>hwanghore ppajin moonstruck</p>
+
+    <p>Oh, tú me haces perder la cabeza</p>
+    <p>Oh, you make me go</p>
+    <p>Oh, you make me go</p>
+
+    <p>Loco por ti, por ti, nena</p>
+    <p>Crazy over you (you), you, baby</p>
+    <p>Crazy over you (you), you, baby</p>
+
+    <p>Déjame abrazarte fuerte</p>
+    <p>Let me hold you close</p>
+    <p>Let me hold you close</p>
+
+    <p>Quiero sentirte en esta noche hasta el final</p>
+    <p>너를 느끼고 싶어 이 밤 끝까지</p>
+    <p>neoreul neukkigo sipeo i bam kkeutkkaji</p>
+
+    <p>Loco por ti, por ti, nena</p>
+    <p>Crazy over you (you), you, baby</p>
+    <p>Crazy over you (you), you, baby</p>
+
+    <p>(Uoh-oh-oh)</p>
+    <p>(Woh-oh-oh)</p>
+    <p>(Woh-oh-oh)</p>
+
+    <p>Loco por ti, por ti, nena</p>
+    <p>Crazy over you, baby</p>
+    <p>Crazy over you, baby</p>
+  </template>
+
+  <!-- Pega aquí la letra de "Telephones" (Vacations) cuando la tengas -->
+  <template id="lyricsTelephones">
+    <p>Rise with the morning</p>
+    <p>You call to me</p>
+    <p>My thoughts are crawling</p>
+    <p>You're all I see</p>
+
+    <p>I wish I could live without you</p>
+    <p>But you're a part of me</p>
+    <p>Wherever I go</p>
+    <p>You'll always be next to me</p>
+
+    <p>Fall into the night</p>
+    <p>As I gaze into you</p>
+    <p>Shine so bright</p>
+    <p>It's all I do</p>
+
+    <p>I wish I could live without you</p>
+    <p>But you're a part of me</p>
+    <p>Wherever I go</p>
+    <p>You'll always be next to me</p>
+
+    <p>You'll always be next to me</p>
+    <p>You'll always be next to me</p>
+    <p>You'll always be next to me</p>
+    <p>You'll always be next to me</p>
+  </template>
+
+  <!-- CLOSING -->
+  <div class="screen" id="closingScreen">
+    <div class="panel closing-panel">
+      <div class="closing-moon">
+        <div class="moon-halo-outer"></div>
+        <div class="moon-glow"></div>
+        <div class="moon"></div>
+      </div>
+      <div class="closing-text">
+        <div class="closing-line1">Siempre tuyo,</div>
+        <div class="closing-line2">te amo Vanesa</div>
+        <button class="replay" id="closingRestartBtn">volver al inicio ↺</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reproductor de audio: pon tu archivo mp3 junto a este HTML y nómbralo igual que "src" abajo -->
+  <audio id="songAudio" src="moonstruck.mp3" preload="auto"></audio>
+
+</div>
+
+<script>
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- Estrellas fugaces ----------
+  function spawnShootingStar(){
+    const s = document.createElement('div');
+    s.className = 'shooting-star';
+    s.style.top = (Math.random() * 40 + 5) + '%';
+    s.style.left = (Math.random() * 55 + 10) + '%';
+    const angle = 15 + Math.random() * 35; // baja en diagonal hacia abajo-derecha
+    s.style.transform = 'rotate(' + angle + 'deg)';
+    const head = document.createElement('div');
+    head.className = 'ss-head';
+    s.appendChild(head);
+    sky.appendChild(s);
+    requestAnimationFrame(() => s.classList.add('fly'));
+    setTimeout(() => s.remove(), 1400);
+  }
+
+  function scheduleShootingStars(){
+    if(prefersReducedMotion) return;
+    const delay = 3500 + Math.random() * 5500;
+    setTimeout(() => {
+      spawnShootingStar();
+      scheduleShootingStars();
+    }, delay);
+  }
+  scheduleShootingStars();
+
+  // ---------- Secuencia de apertura ----------
+  const nameIntro = document.getElementById('nameIntro');
+  const skyEl = document.getElementById('sky');
+  const stageEl = document.getElementById('stage');
+
+  if(prefersReducedMotion){
+    nameIntro.style.display = 'none';
+    skyEl.classList.add('show');
+    stageEl.classList.add('show');
+  } else {
+    setTimeout(() => {
+      nameIntro.classList.add('hide');
+      skyEl.classList.add('show');
+      stageEl.classList.add('show');
+    }, 2800);
+    setTimeout(() => { nameIntro.style.display = 'none'; }, 4800);
+  }
+
+  // ---------- Estrellas de fondo ----------
+  const sky = document.getElementById('sky');
+  const STAR_COUNT = 90;
+  for(let i=0;i<STAR_COUNT;i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random()*2 + 1;
+    s.style.width = size+'px';
+    s.style.height = size+'px';
+    s.style.top = Math.random()*100+'%';
+    s.style.left = Math.random()*100+'%';
+    s.style.animationDuration = (2 + Math.random()*4)+'s';
+    s.style.animationDelay = (Math.random()*4)+'s';
+    sky.appendChild(s);
+  }
+
+  // ---------- Las 100 razones ----------
+  // Edita, borra o reordena libremente cualquiera de estas líneas.
+  const reasons = [
+"Porque tu risa es la primera cosa que quiero escuchar cada mañana.",
+"Porque encuentras belleza en los días más comunes.",
+"Porque tienes paciencia infinita conmigo, incluso cuando no la merezco.",
+"Porque tu forma de abrazar hace que el mundo se sienta más pequeño y más seguro.",
+"Porque nunca dejas de sorprenderme, después de tanto tiempo.",
+"Porque me escuchas de verdad, no solo esperas tu turno para hablar.",
+"Porque tienes una curiosidad que contagia ganas de aprender.",
+"Porque celebras mis logros como si fueran tuyos.",
+"Porque sabes cuándo necesito silencio y cuándo necesito palabras.",
+"Porque tu forma de cuidar a los demás me enseña a ser mejor persona.",
+"Porque tienes un sentido del humor que me desarma por completo.",
+"Porque no te da miedo mostrarte vulnerable conmigo.",
+"Porque cada plan contigo, por simple que sea, se vuelve mi favorito.",
+"Porque tu manera de hablar de tus sueños me hace querer ayudarte a cumplirlos.",
+"Porque me retas a pensar diferente.",
+"Porque tienes una memoria enorme para los detalles que me importan.",
+"Porque tu abrazo después de un mal día arregla más de lo que debería.",
+"Porque bailas en la cocina sin que nadie te lo pida.",
+"Porque defiendes lo que crees, incluso cuando es incómodo.",
+"Porque tu forma de ver el mundo es generosa, incluso cuando el mundo no lo es contigo.",
+"Porque haces que las tareas aburridas se sientan como aventuras.",
+"Porque tu voz es de las pocas cosas que siempre me calman.",
+"Porque compartes tu comida sin que te lo pida (casi siempre).",
+"Porque tienes una forma muy tuya de decir las cosas importantes.",
+"Porque nunca te olvidas de preguntar cómo estuvo mi día.",
+"Porque tu creatividad me inspira a intentar cosas nuevas.",
+"Porque sabes perdonar sin guardar rencor.",
+"Porque te emocionas con las cosas pequeñas: un atardecer, una canción, un buen café.",
+"Porque tienes una ternura que no intentas esconder.",
+"Porque me haces sentir escuchado incluso cuando digo las cosas mal.",
+"Porque tu forma de reír a carcajadas es contagiosa.",
+"Porque sabes admitir cuando te equivocas.",
+"Porque tratas a los desconocidos con la misma amabilidad que a mí.",
+"Porque tu abrazo tiene memoria: siempre encuentra el mismo lugar.",
+"Porque me acompañas en mis obsesiones raras sin quejarte (mucho).",
+"Porque tu forma de pensar en el futuro incluye la palabra \"nosotros\".",
+"Porque tienes una fuerza tranquila que no necesita ser ruidosa.",
+"Porque cuidas los detalles que la mayoría no nota.",
+"Porque tu presencia hace que cualquier lugar se sienta como casa.",
+"Porque te importa de verdad la gente que quiero.",
+"Porque tu forma de motivarme nunca se siente forzada.",
+"Porque tienes una lista interminable de datos curiosos que compartes en el momento perfecto.",
+"Porque sabes leer mis silencios.",
+"Porque tu optimismo no es ingenuo, es valiente.",
+"Porque encuentras la manera de hacerme reír incluso cuando estoy de mal humor.",
+"Porque tu curiosidad por mis días nunca se agota.",
+"Porque tienes una manera muy honesta de querer.",
+"Porque tu paciencia con mis manías es casi heroica.",
+"Porque siempre encuentras tiempo, aunque el día esté lleno.",
+"Porque tu forma de disculparte es sincera, sin excusas de por medio.",
+"Porque tu mirada cambia cuando hablas de algo que te apasiona.",
+"Porque me haces mejor sin intentar cambiarme.",
+"Porque tienes una manera única de convertir lo cotidiano en especial.",
+"Porque tu apoyo no tiene condiciones.",
+"Porque sabes celebrar tus propios logros sin arrogancia.",
+"Porque tienes una forma de mirar los problemas que los hace más pequeños.",
+"Porque tu abrazo es mi lugar seguro favorito.",
+"Porque te tomas en serio lo que me hace feliz.",
+"Porque tu forma de contar historias hace que hasta lo aburrido suene interesante.",
+"Porque sabes cuándo darme espacio sin que se sienta como distancia.",
+"Porque tu lealtad no se negocia.",
+"Porque tienes una manera de hacer que los planes improvisados sean los mejores recuerdos.",
+"Porque tu forma de querer no busca reconocimiento.",
+"Porque me haces sentir en equipo, no solo acompañado.",
+"Porque tu manera de disfrutar la música me hace quererla más.",
+"Porque tienes una forma de mirar las segundas oportunidades con generosidad.",
+"Porque sabes hacer que un mensaje de texto se sienta como un abrazo.",
+"Porque tu forma de cuidar tu cuerpo y tu mente me inspira a cuidar los míos.",
+"Porque tienes una forma de discutir que busca entender, no ganar.",
+"Porque tu ternura con los animales dice mucho de quién eres.",
+"Porque me recuerdas quién quiero ser cuando se me olvida.",
+"Porque tu forma de organizar el caos es casi mágica.",
+"Porque sabes celebrar lo pequeño sin esperar lo grande.",
+"Porque tienes una manera de decir \"te quiero\" con acciones, no solo con palabras.",
+"Porque tu forma de escuchar música en el auto es un espectáculo aparte.",
+"Porque siempre encuentras algo bueno que decir, incluso en los días difíciles.",
+"Porque tu forma de soñar despierto me contagia esperanza.",
+"Porque sabes convertir una discusión en una conversación.",
+"Porque tu manera de ser tú, sin filtros, es lo que más admiro.",
+"Porque tienes una forma de hacer que me sienta importante sin esfuerzo.",
+"Porque tu risa en las mañanas vale más que cualquier alarma.",
+"Porque me haces confiar más en el futuro solo por estar en él.",
+"Porque tu forma de cuidar los detalles de una fecha especial no pasa desapercibida.",
+"Porque tienes una manera de hacerme sentir en casa incluso en lugares nuevos.",
+"Porque sabes guardar los secretos que te confío como si fueran tuyos.",
+"Porque tu forma de crecer, aprender y cambiar me inspira a hacer lo mismo.",
+"Porque tienes una manera de mirar atrás sin arrepentimientos, solo con aprendizajes.",
+"Porque tu paciencia para explicarme las cosas que no entiendo no tiene límite.",
+"Porque sabes hacer que las despedidas se sientan menos difíciles.",
+"Porque tu forma de decir \"estoy aquí\" se siente en cada gesto.",
+"Porque tienes una manera de amar que no necesita ser perfecta para ser real.",
+"Porque tu curiosidad por el mundo me recuerda que siempre hay algo nuevo que descubrir juntos.",
+"Porque sabes hacer que cualquier lugar común se sienta como una cita.",
+"Porque tu forma de apoyar mis locuras me da el valor de intentarlas.",
+"Porque tienes una manera de mirar el futuro que siempre me incluye.",
+"Porque tu forma de quererme ha cambiado, crecido y se ha hecho más fuerte con el tiempo.",
+"Porque sabes hacer de un día cualquiera, un buen día.",
+"Porque tu forma de estar presente, sin distracciones, es un regalo poco común.",
+"Porque, después de todo este tiempo, sigo eligiéndote cada día.",
+"Porque simplemente eres tú, y eso ha sido suficiente razón desde el principio."
+  ];
+
+  // ---------- Estado ----------
+  let current = 0;
+
+  const intro = document.getElementById('intro');
+  const cardWrap = document.getElementById('cardWrap');
+  const finalScreen = document.getElementById('finalScreen');
+  const reasonText = document.getElementById('reasonText');
+  const counterNum = document.getElementById('counterNum');
+  const counterEl = document.querySelector('.counter');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const constellation = document.getElementById('constellation');
+
+  // construir puntos de constelación (clickeables)
+  reasons.forEach((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'dot-btn';
+    btn.setAttribute('aria-label', 'Ir a la razón ' + (i + 1));
+    const d = document.createElement('span');
+    d.className = 'dot';
+    btn.appendChild(d);
+    btn.addEventListener('click', () => goTo(i));
+    constellation.appendChild(btn);
+  });
+  const dots = constellation.querySelectorAll('.dot');
+
+  let isTransitioning = false;
+  const TRANSITION_MS = 320;
+
+  function paintContent(){
+    reasonText.textContent = reasons[current];
+    counterNum.textContent = current + 1;
+    prevBtn.disabled = current === 0;
+    nextBtn.textContent = (current === reasons.length - 1) ? 'terminar →' : 'siguiente →';
+    dots.forEach((d, i) => d.classList.toggle('lit', i <= current));
+  }
+
+  function render(){
+    // pinta sin animación (usado al entrar a la primera tarjeta)
+    paintContent();
+  }
+
+  function goTo(newIndex){
+    if(isTransitioning || newIndex === current) return;
+    isTransitioning = true;
+    reasonText.classList.add('transitioning');
+    counterEl.classList.add('transitioning');
+    setTimeout(() => {
+      current = newIndex;
+      paintContent();
+      reasonText.classList.remove('transitioning');
+      counterEl.classList.remove('transitioning');
+      isTransitioning = false;
+    }, TRANSITION_MS);
+  }
+
+  function showCard(){
+    intro.classList.remove('active');
+    finalScreen.classList.remove('active');
+    cardWrap.classList.add('active');
+    render();
+  }
+
+  function showFinal(){
+    cardWrap.classList.remove('active');
+    finalScreen.classList.add('active');
+  }
+
+  const songScreen = document.getElementById('songScreen');
+  const songSelectScreen = document.getElementById('songSelectScreen');
+  const skyPinkTint = document.getElementById('skyPinkTint');
+
+  function showSongSelect(){
+    finalScreen.classList.remove('active');
+    songScreen.classList.remove('active');
+    songSelectScreen.classList.add('active');
+    skyPinkTint.classList.add('show');
+  }
+
+  document.getElementById('goSongBtn').addEventListener('click', showSongSelect);
+
+  const auroraPink = document.getElementById('auroraPink');
+  const auroraRed = document.getElementById('auroraRed');
+
+  document.getElementById('backToSelectBtn').addEventListener('click', () => {
+    songAudio.pause();
+    songScreen.classList.remove('active');
+    songSelectScreen.classList.add('active');
+    auroraPink.classList.remove('show');
+    auroraRed.classList.remove('show');
+  });
+
+  const closingScreen = document.getElementById('closingScreen');
+
+  function showClosing(){
+    songScreen.classList.remove('active');
+    closingScreen.classList.add('active');
+    auroraPink.classList.remove('show');
+    auroraRed.classList.remove('show');
+  }
+
+  document.getElementById('goClosingBtn').addEventListener('click', showClosing);
+
+  document.getElementById('closingRestartBtn').addEventListener('click', () => {
+    // detiene la canción y la deja lista desde el principio
+    songAudio.pause();
+    songAudio.currentTime = 0;
+    setPlayingVisuals(false);
+    lyricsScroll.style.top = '100%';
+    timeCurrentEl.textContent = '0:00';
+    seekSlider.value = 0;
+
+    // vuelve todo hasta la primerísima pantalla
+    closingScreen.classList.remove('active');
+    songScreen.classList.remove('active');
+    songSelectScreen.classList.remove('active');
+    finalScreen.classList.remove('active');
+    cardWrap.classList.remove('active');
+    skyPinkTint.classList.remove('show');
+    auroraPink.classList.remove('show');
+    auroraRed.classList.remove('show');
+    current = 0;
+    intro.classList.add('active');
+  });
+
+  document.getElementById('beginBtn').addEventListener('click', () => {
+    current = 0;
+    showCard();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if(current > 0){ goTo(current - 1); }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if(current < reasons.length - 1){
+      goTo(current + 1);
+    } else {
+      showFinal();
+    }
+  });
+
+  document.getElementById('replayBtn').addEventListener('click', () => {
+    songScreen.classList.remove('active');
+    skyPinkTint.classList.remove('show');
+    current = 0;
+    showCard();
+  });
+
+  // swipe táctil
+  let touchX = null;
+  cardWrap.addEventListener('touchstart', e => touchX = e.touches[0].clientX);
+  cardWrap.addEventListener('touchend', e => {
+    if(touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if(Math.abs(dx) > 50){
+      if(dx < 0) nextBtn.click();
+      else prevBtn.click();
+    }
+    touchX = null;
+  });
+
+  // teclado
+  document.addEventListener('keydown', e => {
+    if(!cardWrap.classList.contains('active')) return;
+    if(e.key === 'ArrowRight') nextBtn.click();
+    if(e.key === 'ArrowLeft') prevBtn.click();
+  });
+
+  // ---------- Reproductor de la canción (archivo de audio local) ----------
+  const songAudio = document.getElementById('songAudio');
+  const moonPlayBtn = document.getElementById('moonPlayBtn');
+  const coverPlayBtn = document.getElementById('coverPlayBtn');
+  const lyricsScroll = document.getElementById('lyricsScroll');
+  const songCaption = document.getElementById('songCaption');
+  const pauseBtn = document.getElementById('pauseBtn');
+  const iconPause = pauseBtn.querySelector('.icon-pause');
+  const iconResume = pauseBtn.querySelector('.icon-resume');
+  const volumeSlider = document.getElementById('volumeSlider');
+  const volDownBtn = document.getElementById('volDownBtn');
+  const volUpBtn = document.getElementById('volUpBtn');
+  const seekSlider = document.getElementById('seekSlider');
+  const timeCurrentEl = document.getElementById('timeCurrent');
+  const timeDurationEl = document.getElementById('timeDuration');
+  const restartBtn = document.getElementById('restartBtn');
+  const lyricsBox = document.getElementById('lyricsBox');
+
+  songAudio.volume = Number(volumeSlider.value) / 100;
+
+  let isSeeking = false;
+  let activeVisual = moonPlayBtn;
+
+  // Cada canción: su audio, su leyenda, su plantilla de letra y qué
+  // elemento visual usar (la luna, o la portada).
+  const SONGS = {
+    moonstruck: {
+      caption: 'Moonstruck — ENHYPEN',
+      audioSrc: 'moonstruck.mp3',
+      lyricsTemplateId: 'lyricsMoonstruck',
+      visual: moonPlayBtn,
+      aurora: auroraPink
+    },
+    telephones: {
+      caption: 'Telephones — Vacations',
+      audioSrc: 'telephones.mp3',
+      lyricsTemplateId: 'lyricsTelephones',
+      visual: coverPlayBtn,
+      aurora: auroraRed
+    }
+  };
+
+  function selectSong(key){
+    const song = SONGS[key];
+    if(!song) return;
+
+    songAudio.pause();
+    songAudio.currentTime = 0;
+    songAudio.src = song.audioSrc;
+    songCaption.textContent = song.caption;
+
+    lyricsScroll.innerHTML = '';
+    const tpl = document.getElementById(song.lyricsTemplateId);
+    if(tpl){ lyricsScroll.appendChild(tpl.content.cloneNode(true)); }
+    lyricsScroll.style.top = '100%';
+
+    timeCurrentEl.textContent = '0:00';
+    timeDurationEl.textContent = '0:00';
+    seekSlider.value = 0;
+
+    moonPlayBtn.style.display = (song.visual === moonPlayBtn) ? '' : 'none';
+    coverPlayBtn.style.display = (song.visual === coverPlayBtn) ? '' : 'none';
+    activeVisual = song.visual;
+    setPlayingVisuals(false);
+
+    auroraPink.classList.toggle('show', song.aurora === auroraPink);
+    auroraRed.classList.toggle('show', song.aurora === auroraRed);
+
+    songSelectScreen.classList.remove('active');
+    songScreen.classList.add('active');
+    skyPinkTint.classList.add('show');
+  }
+
+  document.getElementById('cardMoonstruck').addEventListener('click', () => selectSong('moonstruck'));
+  document.getElementById('cardTelephones').addEventListener('click', () => selectSong('telephones'));
+
+  function formatTime(sec){
+    if(!isFinite(sec) || sec < 0) sec = 0;
+    const m = Math.floor(sec / 60);
+    const s = Math.floor(sec % 60).toString().padStart(2, '0');
+    return m + ':' + s;
+  }
+
+  // Mueve la letra según el punto exacto de la canción (currentTime / duration).
+  // El recorrido va desde "recién entrando por abajo" hasta "totalmente pasado
+  // por arriba", medido en píxeles según el alto real de la letra pegada.
+  function moveLyricsToProgress(progress){
+    const startTop = lyricsBox.clientHeight;
+    const endTop = -lyricsScroll.scrollHeight;
+    lyricsScroll.style.top = (startTop + progress * (endTop - startTop)) + 'px';
+  }
+
+  function updatePlaybackUI(){
+    const duration = songAudio.duration;
+    timeCurrentEl.textContent = formatTime(songAudio.currentTime);
+    if(duration && isFinite(duration) && duration > 0){
+      const progress = Math.min(songAudio.currentTime / duration, 1);
+      moveLyricsToProgress(progress);
+      timeDurationEl.textContent = formatTime(duration);
+      if(!isSeeking){ seekSlider.value = progress * 100; }
+    }
+  }
+
+  function syncLyricsFrame(){
+    updatePlaybackUI();
+    if(!songAudio.paused && !songAudio.ended){
+      requestAnimationFrame(syncLyricsFrame);
+    }
+  }
+
+  function setPlayingVisuals(isPlaying){
+    moonPlayBtn.classList.toggle('playing', isPlaying && activeVisual === moonPlayBtn);
+    coverPlayBtn.classList.toggle('playing', isPlaying && activeVisual === coverPlayBtn);
+    iconPause.style.display = isPlaying ? '' : 'none';
+    iconResume.style.display = isPlaying ? 'none' : '';
+  }
+
+  function togglePlay(){
+    if(songAudio.paused){
+      songAudio.play().catch(err => {
+        console.warn('No se pudo reproducir el audio:', err);
+      });
+    } else {
+      songAudio.pause();
+    }
+  }
+
+  songAudio.addEventListener('loadedmetadata', updatePlaybackUI);
+  songAudio.addEventListener('play', () => {
+    setPlayingVisuals(true);
+    requestAnimationFrame(syncLyricsFrame);
+  });
+  songAudio.addEventListener('pause', () => setPlayingVisuals(false));
+  songAudio.addEventListener('ended', () => setPlayingVisuals(false));
+
+  moonPlayBtn.addEventListener('click', togglePlay);
+  moonPlayBtn.addEventListener('keydown', e => {
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); togglePlay(); }
+  });
+  coverPlayBtn.addEventListener('click', togglePlay);
+  coverPlayBtn.addEventListener('keydown', e => {
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); togglePlay(); }
+  });
+  pauseBtn.addEventListener('click', togglePlay);
+
+  // Barra de tiempo: arrastrar adelanta o retrocede la canción en vivo.
+  seekSlider.addEventListener('input', () => {
+    isSeeking = true;
+    const duration = songAudio.duration || 0;
+    songAudio.currentTime = (Number(seekSlider.value) / 100) * duration;
+    updatePlaybackUI();
+  });
+  seekSlider.addEventListener('change', () => { isSeeking = false; });
+
+  // Volver al principio de la canción (sin recargar la página).
+  restartBtn.addEventListener('click', () => {
+    songAudio.currentTime = 0;
+    updatePlaybackUI();
+  });
+
+  volumeSlider.addEventListener('input', e => {
+    songAudio.volume = Number(e.target.value) / 100;
+  });
+  volDownBtn.addEventListener('click', () => {
+    volumeSlider.value = Math.max(0, Number(volumeSlider.value) - 10);
+    songAudio.volume = Number(volumeSlider.value) / 100;
+  });
+  volUpBtn.addEventListener('click', () => {
+    volumeSlider.value = Math.min(100, Number(volumeSlider.value) + 10);
+    songAudio.volume = Number(volumeSlider.value) / 100;
+  });
+</script>
+
+</body>
+</html>
